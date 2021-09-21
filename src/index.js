@@ -1,3 +1,5 @@
-import { sayHi } from "../sayHi";
+import react from "react";
+import reactDom from "react-dom";
+import App from "./App";
 
-sayHi();
+reactDom.render(<App />, document.getElementById("root"));
