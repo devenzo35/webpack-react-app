@@ -14,16 +14,23 @@ const rulesForCSS = {
   use: ["style-loader", "css-loader"],
 };
 
-module.exports = {
-  output: {
-    path: path.resolve(__dirname, "build"),
-  },
-  plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
-  module: {
-    rules: [rulesForJS, rulesForCSS],
-  },
-  devServer: {
-    port: 3006,
-    open: true,
-  },
+module.exports = (env, args) => {
+  const { mode } = args;
+
+  const isProduction = mode === "production";
+
+  return {
+    output: {
+      filename: isProduction ? "[name].[contenthash].js" : "main.js",
+      path: path.resolve(__dirname, "build"),
+    },
+    plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
+    module: {
+      rules: [rulesForJS, rulesForCSS],
+    },
+    devServer: {
+      port: 3006,
+      open: true,
+    },
+  };
 };
